@@ -2,11 +2,10 @@ import json
 import re
 
 
-# convenience function: check if any topic term is contained within a sentence
+
 def contains(a_list, a_sentence):
     for item in a_list:
-        # handle patterned case (prefaced by asterisk)
-        # eg. "*dd:ddam" will catch the pattern "10:30am"
+        
         if item[0] == '*':
             if re.search(item.replace('*', '').replace('d', '\d'), a_sentence):
                 return (item)
@@ -15,14 +14,14 @@ def contains(a_list, a_sentence):
                 return (item)
 
 
-# convenience function: split text into one or more sentences
+#  split text into one or more sentences
 def split(text, rows_split_delim=['.', '!', '?']):
     # sentences after the split
     rows_split = []
     # pointer to position within text
     pointer = 0
 
-    # don't try to split messages with links
+    
     if 'http' in text.lower():
         return [text]
 
@@ -38,16 +37,14 @@ def split(text, rows_split_delim=['.', '!', '?']):
             # update the pointer
             pointer = text.index(char, pointer) + 1
 
-    # finish by splitting out the remaining text
-    # from the previous pointer to this delimeter
-    # this handles the case of text with no split sentences
+    
     sentence = text[pointer:].lstrip().strip()
     rows_split.append(sentence)
 
     return rows_split
 
 
-# Classify class definition
+
 class Classifier(object):
     
 
